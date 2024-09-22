@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Timer with Start, Stop, Reset</title>
+  <title>Timer with Start, Stop, Reset & World Clocks</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -24,12 +24,37 @@
     .buttons {
       display: flex;
       gap: 10px;
+      margin-bottom: 20px;
     }
 
     button {
       padding: 10px 20px;
       font-size: 16px;
       cursor: pointer;
+    }
+
+    .world-clocks {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 20px;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .clock {
+      padding: 10px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .city {
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+
+    .time {
+      font-size: 24px;
     }
   </style>
 </head>
@@ -41,6 +66,49 @@
     <button id="startButton">Start</button>
     <button id="stopButton">Stop</button>
     <button id="resetButton">Reset</button>
+  </div>
+
+  <div class="world-clocks" id="worldClocks">
+    <div class="clock">
+      <div class="city">New York</div>
+      <div class="time" id="newYorkTime"></div>
+    </div>
+    <div class="clock">
+      <div class="city">London</div>
+      <div class="time" id="londonTime"></div>
+    </div>
+    <div class="clock">
+      <div class="city">Tokyo</div>
+      <div class="time" id="tokyoTime"></div>
+    </div>
+    <div class="clock">
+      <div class="city">Sydney</div>
+      <div class="time" id="sydneyTime"></div>
+    </div>
+    <div class="clock">
+      <div class="city">Dubai</div>
+      <div class="time" id="dubaiTime"></div>
+    </div>
+    <div class="clock">
+      <div class="city">Los Angeles</div>
+      <div class="time" id="laTime"></div>
+    </div>
+    <div class="clock">
+      <div class="city">Moscow</div>
+      <div class="time" id="moscowTime"></div>
+    </div>
+    <div class="clock">
+      <div class="city">Paris</div>
+      <div class="time" id="parisTime"></div>
+    </div>
+    <div class="clock">
+      <div class="city">Mumbai</div>
+      <div class="time" id="mumbaiTime"></div>
+    </div>
+    <div class="clock">
+      <div class="city">Beijing</div>
+      <div class="time" id="beijingTime"></div>
+    </div>
   </div>
 
   <script>
@@ -83,6 +151,31 @@
     startButton.addEventListener('click', startTimer);
     stopButton.addEventListener('click', stopTimer);
     resetButton.addEventListener('click', resetTimer);
+
+    const cities = {
+      newYorkTime: -4,
+      londonTime: 0,
+      tokyoTime: 9,
+      sydneyTime: 10,
+      dubaiTime: 4,
+      laTime: -7,
+      moscowTime: 3,
+      parisTime: 1,
+      mumbaiTime: 5.5,
+      beijingTime: 8,
+    };
+
+    function updateWorldClocks() {
+      const now = new Date();
+      
+      Object.keys(cities).forEach(id => {
+        let cityTime = new Date(now.getTime() + cities[id] * 3600 * 1000);
+        document.getElementById(id).textContent = cityTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      });
+    }
+
+    setInterval(updateWorldClocks, 1000);
+    updateWorldClocks(); // Initial update to avoid 1-second delay
   </script>
 
 </body>
