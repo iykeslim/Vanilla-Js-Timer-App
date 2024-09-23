@@ -56,6 +56,11 @@
     .time {
       font-size: 24px;
     }
+
+    .day {
+      font-size: 16px;
+      color: #555;
+    }
   </style>
 </head>
 <body>
@@ -72,42 +77,52 @@
     <div class="clock">
       <div class="city">New York</div>
       <div class="time" id="newYorkTime"></div>
+      <div class="day" id="newYorkDay"></div>
     </div>
     <div class="clock">
       <div class="city">London</div>
       <div class="time" id="londonTime"></div>
+      <div class="day" id="londonDay"></div>
     </div>
     <div class="clock">
       <div class="city">Tokyo</div>
       <div class="time" id="tokyoTime"></div>
+      <div class="day" id="tokyoDay"></div>
     </div>
     <div class="clock">
       <div class="city">Sydney</div>
       <div class="time" id="sydneyTime"></div>
+      <div class="day" id="sydneyDay"></div>
     </div>
     <div class="clock">
       <div class="city">Dubai</div>
       <div class="time" id="dubaiTime"></div>
+      <div class="day" id="dubaiDay"></div>
     </div>
     <div class="clock">
       <div class="city">Los Angeles</div>
       <div class="time" id="laTime"></div>
+      <div class="day" id="laDay"></div>
     </div>
     <div class="clock">
       <div class="city">Moscow</div>
       <div class="time" id="moscowTime"></div>
+      <div class="day" id="moscowDay"></div>
     </div>
     <div class="clock">
       <div class="city">Paris</div>
       <div class="time" id="parisTime"></div>
+      <div class="day" id="parisDay"></div>
     </div>
     <div class="clock">
       <div class="city">Mumbai</div>
       <div class="time" id="mumbaiTime"></div>
+      <div class="day" id="mumbaiDay"></div>
     </div>
     <div class="clock">
       <div class="city">Beijing</div>
       <div class="time" id="beijingTime"></div>
+      <div class="day" id="beijingDay"></div>
     </div>
   </div>
 
@@ -167,10 +182,11 @@
 
     function updateWorldClocks() {
       const now = new Date();
-      
+
       Object.keys(cities).forEach(id => {
         let cityTime = new Date(now.getTime() + cities[id] * 3600 * 1000);
         document.getElementById(id).textContent = cityTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        document.getElementById(id.replace('Time', 'Day')).textContent = cityTime.toLocaleDateString('en-US', { weekday: 'long' });
       });
     }
 
